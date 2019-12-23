@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const cors = require('cors')
 const path = require('path');
 // const util = require('util');
 const multer = require('multer');
@@ -17,7 +18,9 @@ const port = process.env.PORT || 9000;
 
 const app = express();
 
+app.use(cors())
 app.use(logger('dev'));
+app.options('*', cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -25,9 +28,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const uploadPath = path.join(__dirname, 'uploads');
 
 // create the upload folder if it doesn't exist
-// if (!fs.existsSync(uploadPath)) {
-//     fs.mkdirSync(uploadPath);
-// }
+if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath);
+}
 
 // configure multer to use the uploads folder
 const upload = multer({ dest: 'uploads/' });
@@ -38,24 +41,25 @@ app.get('/api/contents', (req, res) => {
 });
 
 app.post('/api/contents', upload.single('document'), async (req, res) => {
-    try {
-        if (!req.file) {
-            throw new Error('File not found')
-        }
-
-        // get the file path uploaded via multer
-        const filePath = req.file.path;
-
-        const [result] = await visionClient.textDetection(filePath);
-        const detections = result.textAnnotations;
-        const description = detections[0].description;
-        console.log('Text:', description);
-        res.send({
-            description
-        })
-    } catch (err) {
-        throw new Error(err)
+    if (!req.file) {
+        throw new Error('File not found')
     }
+
+    // get the file path uploaded via multer
+    const filePath = req.file.path;
+
+    visionClient
+        .textDetection(filePath)
+        .then(response => {
+            const detections = response[0].textAnnotations;
+            const description = detections[0].description;
+            console.log('Text:', description);
+            res.status(200).json({ description });
+        })
+        .catch(err => {
+            console.error(err);
+            throw new Error(err)
+        });
 })
 
 // catch 404 and forward to error handler
