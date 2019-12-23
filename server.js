@@ -4,12 +4,12 @@ const cors = require('cors')
 const path = require('path');
 const multer = require('multer');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+// const MongoClient = require('mongodb').MongoClient;
 const { Storage } = require('@google-cloud/storage');
 // const { Datastore } = require('@google-cloud/datastore');
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
-const MongoClient = require('mongodb').MongoClient;
-const mongoose = require('mongoose');
 
 
 const app = express();
@@ -46,9 +46,6 @@ const bucket = storage.bucket(bucketName);
 
 
 // const datastore = new Datastore();
-
-
-
 const visionClient = new ImageAnnotatorClient();
 
 
@@ -88,8 +85,10 @@ mongoose.connection.on('error', err => {
 
 // API calls
 
-app.get('/api/contents', (req, res) => {
-    res.json({ express: 'Hello From Express' });
+app.get('/api/contents', async (req, res) => {
+    let result = await ImageModal.find({});
+
+    res.status(200).json({ result });
 });
 
 app.post('/api/contents', upload.single('document'), async (req, res, next) => {
