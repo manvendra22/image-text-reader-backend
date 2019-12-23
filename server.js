@@ -1,11 +1,11 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
+// const util = require('util');
 const multer = require('multer');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
 
 require('dotenv').config();
@@ -13,9 +13,8 @@ require('dotenv').config();
 const port = process.env.PORT || 9000;
 
 const app = express();
-const router = express.Router();
 
-app.use(fileUpload());
+// app.use(fileUpload());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,11 +40,11 @@ if (!fs.existsSync(uploadPath)) {
 const upload = multer({ dest: 'uploads/' });
 
 // API calls
-router.get('/api/contents', (req, res) => {
-    res.send({ express: 'Hello From Express' });
+app.get('/api/contents', (req, res) => {
+    res.json({ express: 'Hello From Express' });
 });
 
-router.post('/api/contents', upload.single('image'), async (req, res) => {
+app.post('/api/contents', upload.single('image'), async (req, res) => {
     if (!req.file) {
         res.sendStatus(500);
         return;
@@ -63,6 +62,26 @@ router.post('/api/contents', upload.single('image'), async (req, res) => {
     // res.status(201).json(results);
 })
 
-app.listen(port, function () {
-    console.log(`Example app listening on port !`);
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
+
+// error handler
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+});
+
+app.listen(port, function () {
+    console.log(`Example app listening on port: ${port}`);
+});
+
+module.exports = app;
