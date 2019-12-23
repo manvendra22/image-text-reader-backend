@@ -56,6 +56,7 @@ const Schema = mongoose.Schema;
 let ImageSchema = new Schema({
     _id: { type: String, required: true },
     mediaLink: { type: String, required: true, max: 100 },
+    description: { type: String, required: true },
 });
 
 let ImageModal = mongoose.model('Image', ImageSchema, 'images-data');
@@ -86,9 +87,9 @@ mongoose.connection.on('error', err => {
 // API calls
 
 app.get('/api/contents', async (req, res) => {
-    let result = await ImageModal.find({});
+    let contents = await ImageModal.find({});
 
-    res.status(200).json({ result });
+    res.status(200).json({ contents });
 });
 
 app.post('/api/contents', upload.single('document'), async (req, res, next) => {
@@ -103,19 +104,21 @@ app.post('/api/contents', upload.single('document'), async (req, res, next) => {
     visionClient
         .textDetection(filePath)
         .then(response => {
-            // const detections = response[0].textAnnotations;
-            // const description = detections[0].description;
+            const detections = response[0].textAnnotations;
+            const description = detections[0].description;
 
-            bucket.upload(filePath, function (err, file, apiResponse) {
+            bucket.upload(filePath, async (err, file, apiResponse) => {
                 if (err) {
                     return next(err);
                 }
-                // console.log("apiResponse ", apiResponse)
+
+                await file.makePublic()
 
                 let image = new ImageModal(
                     {
                         _id: apiResponse.id,
-                        mediaLink: apiResponse.mediaLink
+                        mediaLink: apiResponse.mediaLink,
+                        description
                     }
                 );
 
@@ -131,8 +134,7 @@ app.post('/api/contents', upload.single('document'), async (req, res, next) => {
             })
         })
         .catch(err => {
-            console.error(err);
-            throw new Error(err)
+            next(err)
         });
 })
 
@@ -145,7 +147,7 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-    console.log(err)
+    console.error(err)
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
