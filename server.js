@@ -8,7 +8,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 // const MongoClient = require('mongodb').MongoClient;
 const { Storage } = require('@google-cloud/storage');
-// const { Datastore } = require('@google-cloud/datastore');
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
 
 
@@ -45,7 +44,6 @@ const bucket = storage.bucket(bucketName);
 
 
 
-// const datastore = new Datastore();
 const visionClient = new ImageAnnotatorClient();
 
 
