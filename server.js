@@ -58,19 +58,21 @@ const Schema = mongoose.Schema;
 
 let ImageSchema = new Schema({
     _id: { type: String, required: true },
-    name: { type: String, required: true, max: 100 },
+    mediaLink: { type: String, required: true, max: 100 },
 });
 
-let ImageModal = mongoose.model('Image', ImageSchema);
+let ImageModal = mongoose.model('Image', ImageSchema, 'images-data');
 
-const uri = `mongodb+srv://canvas:<${process.env.DB_PASSWORD}>@cluster0-ovurt.mongodb.net/test?retryWrites=true&w=majority`;
-mongoose.connect(uri);
+const uri = `mongodb+srv://canvas:${process.env.DB_PASSWORD}@cluster0-ovurt.mongodb.net/handwriting-recognition?retryWrites=true&w=majority`;
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.Promise = global.Promise;
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+mongoose.connection.on('error', err => {
+    console.error(`MongoDB connection error: ${err}`);
+});
 
-// const client = new MongoClient(uri, { useNewUrlParser: true });
+
+
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  });
 
 // let collection = null
 
@@ -90,9 +92,10 @@ app.get('/api/contents', (req, res) => {
     res.json({ express: 'Hello From Express' });
 });
 
-app.post('/api/contents', upload.single('document'), async (req, res) => {
+app.post('/api/contents', upload.single('document'), async (req, res, next) => {
     if (!req.file) {
-        throw new Error('File not found')
+        const err = new Error('File not found')
+        return next(err);
     }
 
     // get the file path uploaded via multer
@@ -101,12 +104,12 @@ app.post('/api/contents', upload.single('document'), async (req, res) => {
     visionClient
         .textDetection(filePath)
         .then(response => {
-            const detections = response[0].textAnnotations;
-            const description = detections[0].description;
+            // const detections = response[0].textAnnotations;
+            // const description = detections[0].description;
 
             bucket.upload(filePath, function (err, file, apiResponse) {
                 if (err) {
-                    throw new Error(err)
+                    return next(err);
                 }
                 // console.log("apiResponse ", apiResponse)
 
@@ -117,10 +120,14 @@ app.post('/api/contents', upload.single('document'), async (req, res) => {
                     }
                 );
 
-                image.save(function (err) {
+                image.save(function (err, result) {
                     if (err) {
                         return next(err);
                     }
+
+                    res.status(200).json({
+                        result
+                    })
                 })
             })
         })
