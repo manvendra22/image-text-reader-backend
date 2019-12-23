@@ -25,9 +25,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const uploadPath = path.join(__dirname, 'uploads');
 
 // create the upload folder if it doesn't exist
-if (!fs.existsSync(uploadPath)) {
-    fs.mkdirSync(uploadPath);
-}
+// if (!fs.existsSync(uploadPath)) {
+//     fs.mkdirSync(uploadPath);
+// }
 
 // configure multer to use the uploads folder
 const upload = multer({ dest: 'uploads/' });
@@ -48,9 +48,9 @@ app.post('/api/contents', upload.single('document'), async (req, res) => {
 
         const [result] = await visionClient.textDetection(filePath);
         const detections = result.textAnnotations;
-        const description = detections.description;
+        const description = detections[0].description;
         console.log('Text:', description);
-        res.json({
+        res.send({
             description
         })
     } catch (err) {
