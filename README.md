@@ -2,7 +2,7 @@
 
 Handwriting recognition webapp is a platform that enables user to upload an image with a hand-written text and using Google Cloud Vision API it displays the text of the image.
 
-This is the backend for 
+This is the backend for the application
 
 ### Techstack
 
