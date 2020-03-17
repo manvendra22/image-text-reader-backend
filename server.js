@@ -35,18 +35,13 @@ if (!fs.existsSync(uploadPath)) {
 const upload = multer({ dest: 'uploads/' });
 
 
-
-
 const storage = new Storage();
 
 const bucketName = 'handwriting-recognition-221';
 const bucket = storage.bucket(bucketName);
 
 
-
 const visionClient = new ImageAnnotatorClient();
-
-
 
 
 const Schema = mongoose.Schema;
@@ -77,8 +72,6 @@ mongoose.connection.on('error', err => {
 //     // console.log("collection ", collection)
 //     // client.close();
 // });
-
-
 
 
 
