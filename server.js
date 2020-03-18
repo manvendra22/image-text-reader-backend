@@ -35,13 +35,17 @@ if (!fs.existsSync(uploadPath)) {
 const upload = multer({ dest: 'uploads/' });
 
 
-const storage = new Storage();
+const storage = new Storage({
+    keyFilename: 'google-credentials.json'
+});
 
 const bucketName = 'handwriting-recognition-221';
 const bucket = storage.bucket(bucketName);
 
 
-const visionClient = new ImageAnnotatorClient();
+const visionClient = new ImageAnnotatorClient({
+    keyFilename: 'google-credentials.json'
+});
 
 
 const Schema = mongoose.Schema;
