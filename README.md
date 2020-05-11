@@ -2,6 +2,10 @@
 
 > Image Text Reader is a web app to read texts from an image using google’s cloud vision api.
 
+### Live Link
+
+https://image-text-reader.netlify.app/
+
 ### Tech stack:
 
 - React
