@@ -1,31 +1,39 @@
-# Handwriting Recognition Backend
+# Image Text Reader
 
-Handwriting recognition webapp is a platform that enables user to upload an image with a hand-written text and using Google Cloud Vision API it displays the text of the image.
+> Image Text Reader is a web app to read texts from an image using google’s cloud vision api.
 
-This is the backend for the application
+### Tech stack:
 
-### Techstack
+- React
+- SCSS
+- Google cloud vision api
+- Google cloudDB
+- ExpressJS
 
-Handwriting recognition webapp uses following languages and frameworks:
+### Features:
 
--  Javascript
--	ReactJS
--  NodeJS/Express JS
-- MongoDB
-- Google Cloud Storage
+- Text recognition from image
+- Shows old image search history
+- Explicit content detection (yet to be implemented)
 
 ### Installation
 
-Handwriting recognition webapp requires Node and NPM to run.
+It requires Node and NPM to run.
 
 Clone the project from github
 
- $ git clone https://github.com/manvendra22/handwriting-recognition-backend.git
- $ cd handwriting-recognition-backend
-$ npm install
+    $ git clone https://github.com/manvendra22/image-text-reader-backend.git
+    $ cd image-text-reader-backend
+    $ npm install
+    
+Add .env file and then
 
-Add .env file shared with you in the folder and then
+    $ npm start
 
-$ npm start
+### Roadmap:
 
-
+ - [ ] Make responsive
+ - [ ] Remove third party dependency for image upload
+ - [ ] Make mobile design more native
+ - [ ] Implement explicit content detection (Safe search)
+ - [ ] Add animations, make interactions look beautiful
