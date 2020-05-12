@@ -4,10 +4,9 @@ const cors = require('cors')
 const path = require('path');
 const multer = require('multer');
 const logger = require('morgan');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-// const MongoClient = require('mongodb').MongoClient;
 const { Storage } = require('@google-cloud/storage');
+const { Firestore } = require('@google-cloud/firestore');
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
 
 
@@ -42,6 +41,9 @@ configure multer to use the uploads folder
 */
 const upload = multer({ dest: 'uploads/' });
 
+/**
+Google cloud configs
+*/
 const storage = new Storage({
     keyFilename: 'google-credentials.json'
 });
@@ -49,45 +51,35 @@ const storage = new Storage({
 const bucketName = 'handwriting-recognition-221';
 const bucket = storage.bucket(bucketName);
 
-const visionClient = new ImageAnnotatorClient({
+const firestore = new Firestore({
     keyFilename: 'google-credentials.json'
 });
 
-const Schema = mongoose.Schema;
+const collection = firestore.collection('handwriting-recognition')
 
-let ImageSchema = new Schema({
-    _id: { type: String, required: true },
-    mediaLink: { type: String, required: true, max: 100 },
-    description: { type: String, required: true },
+const visionClient = new ImageAnnotatorClient({
+    keyFilename: 'google-credentials.json'
 });
-
-let ImageModal = mongoose.model('Image', ImageSchema, 'images-data');
-
-const uri = `mongodb+srv://canvas:${process.env.DB_PASSWORD}@cluster0-ovurt.mongodb.net/handwriting-recognition?retryWrites=true&w=majority`;
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-mongoose.connection.on('error', err => {
-    console.error(`MongoDB connection error: ${err}`);
-});
-
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  });
-
-// let collection = null
-
-// client.connect(err => {
-//     collection = client.db("handwriting-recognition").collection("data");
-//     // console.log("collection ", collection)
-//     // client.close();
-// });
-
 
 /**
 API calls
 */
 app.get('/api/contents', async (req, res) => {
-    let contents = await ImageModal.find({});
+    let contents = [];
 
-    res.status(200).json({ contents });
+    collection.get()
+        .then((snapshot) => {
+            snapshot.forEach((doc) => {
+                let data = doc.data()
+                data.id = doc.id
+                contents.push(data)
+            });
+
+            res.status(200).json({ contents });
+        })
+        .catch((err) => {
+            console.log('Error getting documents', err);
+        });
 });
 
 app.post('/api/contents', upload.single('document'), async (req, res, next) => {
@@ -111,25 +103,12 @@ app.post('/api/contents', upload.single('document'), async (req, res, next) => {
                 if (err) {
                     return next(err);
                 }
-
                 await file.makePublic()
 
-                let image = new ImageModal(
-                    {
-                        _id: apiResponse.id,
-                        mediaLink: apiResponse.mediaLink,
-                        description
-                    }
-                );
-
-                image.save(function (err, result) {
-                    if (err) {
-                        return next(err);
-                    }
-
-                    res.status(200).json({
-                        result
-                    })
+                let docRef = collection.doc(apiResponse.name)
+                docRef.set({
+                    mediaLink: apiResponse.mediaLink,
+                    description
                 })
             })
         })
