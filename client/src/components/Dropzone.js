@@ -35,7 +35,7 @@ class Dropzone extends Component {
                                         Multiple files not allowed,<br />
                                         please try again.</div>
                                     <img
-                                        src={failed} className="App-logo" alt="failed-logo"
+                                        src={failed} className="drop-logo" alt="failed-logo"
                                     />
                                 </div>
                                 :
@@ -44,13 +44,13 @@ class Dropzone extends Component {
                                         <div>Drag image file here or<br />
                                             Browse from your computer</div>
                                         <img
-                                            src={photo} className="App-logo" alt="upload-logo"
+                                            src={photo} className="drop-logo" alt="upload-logo"
                                         />
                                     </div> :
                                     <div className="dropzone-content">
                                         <div>Drop your file here</div>
                                         <img
-                                            src={upload} className="App-logo" alt="uploading-logo"
+                                            src={upload} className="drop-logo" alt="uploading-logo"
                                         />
                                     </div>
 

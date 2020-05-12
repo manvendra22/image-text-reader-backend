@@ -8,7 +8,7 @@ import HandwrtingRecognition from './components/HandwrtingRecognition'
 function App() {
   return (
     <Fragment>
-      <a target="_blank" href="https://github.com/manvendra22/handwriting-recognition-frontend" class="git-link">
+      <a target="_blank" href="https://github.com/manvendra22/image-text-reader" class="git-link">
         <img src={github} alt="github-logo" className="icon-git" />
       </a>
       <div className="container">
