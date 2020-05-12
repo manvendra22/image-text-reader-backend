@@ -55,7 +55,7 @@ const firestore = new Firestore({
     keyFilename: 'google-credentials.json'
 });
 
-const collection = firestore.collection('handwriting-recognition')
+const collection = firestore.collection('handwriting-recognition-221')
 
 const visionClient = new ImageAnnotatorClient({
     keyFilename: 'google-credentials.json'
