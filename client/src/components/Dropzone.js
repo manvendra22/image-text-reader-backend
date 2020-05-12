@@ -32,8 +32,8 @@ class Dropzone extends Component {
                             isDragReject ?
                                 <div className="dropzone-content">
                                     <div>File type not accepted/<br />
-                                        Multiple files not allowed,<br />
-                                        please try again.</div>
+                                        Multiple files not allowed<br />
+                                        Please try again</div>
                                     <img
                                         src={failed} className="drop-logo" alt="failed-logo"
                                     />
@@ -42,7 +42,7 @@ class Dropzone extends Component {
                                 !isDragActive ?
                                     <div className="dropzone-content">
                                         <div>Drag image file here or<br />
-                                            Browse from your computer</div>
+                                            Click inside the box to browse</div>
                                         <img
                                             src={photo} className="drop-logo" alt="upload-logo"
                                         />
