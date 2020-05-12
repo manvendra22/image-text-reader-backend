@@ -37,6 +37,10 @@ Clone the project from github.
 #### For Backend to run on port 9000
 
     $ npm install
+    $ npm server
+
+#### For running both Frontend & Backend in one shot using concurrently
+
     $ npm start
 
 ### Roadmap:
