@@ -1,5 +1,8 @@
 # Image Text Reader
 
+[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/SMPyBandits/SMPyBandits/)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/SMPyBandits/SMPyBandits/graphs/commit-activity)
+
 > Image Text Reader is a web app to read texts from an image using google’s cloud vision api.
 
 ### Live Link
