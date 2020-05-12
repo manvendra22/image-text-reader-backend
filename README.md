@@ -9,10 +9,10 @@ https://image-text-reader.netlify.app/
 ### Tech stack:
 
 - React
+- ExpressJS
 - SCSS
 - Google cloud vision api
 - Google cloudDB
-- ExpressJS
 
 ### Features:
 
@@ -23,21 +23,27 @@ https://image-text-reader.netlify.app/
 ### Installation
 
 It requires Node and NPM to run.
+Clone the project from github.
 
-Clone the project from github
+    $ git clone https://github.com/manvendra22/image-text-reader.git
+    $ cd image-text-reader
 
-    $ git clone https://github.com/manvendra22/image-text-reader-backend.git
-    $ cd image-text-reader-backend
+#### For Frontend to run on port 3000
+
+    $ cd client
     $ npm install
-    
-Add .env file and then
+    $ npm start
 
+#### For Backend to run on port 9000
+
+    $ npm install
     $ npm start
 
 ### Roadmap:
 
  - [ ] Make responsive
  - [ ] Remove third party dependency for image upload
+ - [x] Move frontend and backend to same repo and host on same server
  - [ ] Make mobile design more native
  - [ ] Implement explicit content detection (Safe search)
  - [ ] Add animations, make interactions look beautiful
