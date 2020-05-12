@@ -105,11 +105,15 @@ app.post('/api/contents', upload.single('document'), async (req, res, next) => {
                 }
                 await file.makePublic()
 
-                let docRef = collection.doc(apiResponse.name)
-                docRef.set({
+                let result = {
                     mediaLink: apiResponse.mediaLink,
                     description
-                })
+                }
+
+                let docRef = collection.doc(apiResponse.name)
+                docRef.set(result)
+
+                res.status(200).json({ result })
             })
         })
         .catch(err => {
