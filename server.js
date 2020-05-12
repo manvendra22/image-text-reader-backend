@@ -26,12 +26,16 @@ const port = process.env.PORT || 9000;
 
 const uploadPath = path.join(__dirname, 'uploads');
 
-// create the upload folder if it doesn't exist
+/**
+create the upload folder if it doesn't exist
+*/
 if (!fs.existsSync(uploadPath)) {
     fs.mkdirSync(uploadPath);
 }
 
-// configure multer to use the uploads folder
+/**
+configure multer to use the uploads folder
+*/
 const upload = multer({ dest: 'uploads/' });
 
 
@@ -65,8 +69,9 @@ mongoose.connection.on('error', err => {
     console.error(`MongoDB connection error: ${err}`);
 });
 
-
-
+/**
+MongoDB(Atlas)
+*/
 // const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  });
 
 // let collection = null
@@ -78,9 +83,9 @@ mongoose.connection.on('error', err => {
 // });
 
 
-
-// API calls
-
+/**
+API calls
+*/
 app.get('/api/contents', async (req, res) => {
     let contents = await ImageModal.find({});
 
@@ -93,7 +98,9 @@ app.post('/api/contents', upload.single('document'), async (req, res, next) => {
         return next(err);
     }
 
-    // get the file path uploaded via multer
+    /**
+    get the file path uploaded via multer
+    */
     const filePath = req.file.path;
 
     visionClient
@@ -133,21 +140,29 @@ app.post('/api/contents', upload.single('document'), async (req, res, next) => {
         });
 })
 
-// catch 404 and forward to error handler
+/**
+catch 404 and forward to error handler
+*/
 app.use(function (req, res, next) {
     const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
-// error handler
+/**
+error handler
+*/
 app.use(function (err, req, res, next) {
     console.error(err)
-    // set locals, only providing error in development
+    /**
+    set locals, only providing error in development
+    */
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    // render the error page
+    /**
+    render the error page
+    */
     res.status(err.status || 500);
     res.json({ error: err })
 });
