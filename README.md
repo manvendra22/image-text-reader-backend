@@ -4,7 +4,7 @@
 
 ### Live Link
 
-https://image-text-reader.netlify.app/
+https://image-text-reader.herokuapp.com/
 
 ### Tech stack:
 
