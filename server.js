@@ -22,7 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 require('dotenv').config();
 
-const port = process.env.PORT || 9000;
+// const port = process.env.PORT || 9000;
+const port = 9000;
 
 const uploadPath = path.join(__dirname, 'uploads');
 
