@@ -65,10 +65,10 @@ class HandwritingRecognition extends Component {
                 {
                     isFetching ?
                         null :
-                        <div className="d-flex mb-3">
+                        <div>
                             {view === 'ViewHistory' ?
-                                <button type="button" class="btn btn-success mt-5" onClick={this.goToHome}>Home</button> :
-                                <button type="button" class="btn btn-success" onClick={this.getHistoryData}>Display previous results</button>
+                                <button type="button" onClick={this.goToHome}>Home</button> :
+                                <button type="button" onClick={this.getHistoryData}>Display previous results</button>
                             }
                         </div>
 
