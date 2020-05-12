@@ -26,8 +26,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 require('dotenv').config();
 
-// const port = process.env.PORT || 9000;
-const port = 9000;
+const port = process.env.PORT || 9000;
 
 const uploadPath = path.join(__dirname, 'uploads');
 
