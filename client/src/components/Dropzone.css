@@ -2,11 +2,20 @@
     min-height: 200px;
     width: 700px;
     padding: 20px;
-    color: black;
-    border: 3px dashed black;
+    color: #494949;
+    border: 3px dashed #494949;
     border-radius: 15px;
     text-align: left;
     cursor: pointer;
+    max-height: 80vh;
+    overflow: scroll;
+    transition: all 0.3s ease;
+}
+
+.dropzone:hover {
+    color: black;
+    border: 3px dashed black;
+    transition: all 0.3s ease;
 }
 
 .dropzone-content {

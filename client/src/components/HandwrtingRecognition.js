@@ -6,7 +6,6 @@ import Dropzone from './Dropzone'
 import ViewContent from './ViewContent'
 import ViewHistory from './ViewHistory'
 
-// const API_URL = process.env.REACT_APP_BASE_URL
 const API_URL = '/api/contents'
 
 class HandwritingRecognition extends Component {
@@ -65,12 +64,12 @@ class HandwritingRecognition extends Component {
                 {
                     isFetching ?
                         null :
-                        <div>
+                        <Fragment>
                             {view === 'ViewHistory' ?
                                 <button type="button" onClick={this.goToHome}>Home</button> :
                                 <button type="button" onClick={this.getHistoryData}>Display previous results</button>
                             }
-                        </div>
+                        </Fragment>
 
                 }
                 <div className="dropzone">
