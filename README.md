@@ -6,6 +6,8 @@
 
 https://image-text-reader.herokuapp.com/
 
+![Screenshot](image_text_reader.png)
+
 ### Tech stack:
 
 - React
