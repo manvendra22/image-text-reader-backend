@@ -42,7 +42,6 @@ configure multer to use the uploads folder
 */
 const upload = multer({ dest: 'uploads/' });
 
-
 const storage = new Storage({
     keyFilename: 'google-credentials.json'
 });
