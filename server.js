@@ -71,9 +71,6 @@ mongoose.connection.on('error', err => {
     console.error(`MongoDB connection error: ${err}`);
 });
 
-/**
-MongoDB(Atlas)
-*/
 // const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  });
 
 // let collection = null
