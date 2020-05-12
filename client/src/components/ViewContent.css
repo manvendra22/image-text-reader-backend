@@ -5,12 +5,12 @@
 }
 
 .result-description {
-    background-color: #58B695;
-    border-radius: 2%;
+    background-color: #defcf9;
+    border-radius: 10px;
     color: black;
     width: 50%;
     height: 200px;
-    padding: 10px;
+    padding: 15px;
     margin: 5px;
     overflow-y: auto;
 }
@@ -25,4 +25,7 @@
     height: 200px;
     width: 100%;
     pointer-events: none;
+    border-radius: 10px;
+    padding: 5px;
+    background: #defcf9;
 }
