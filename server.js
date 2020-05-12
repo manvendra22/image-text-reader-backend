@@ -50,11 +50,9 @@ const storage = new Storage({
 const bucketName = 'handwriting-recognition-221';
 const bucket = storage.bucket(bucketName);
 
-
 const visionClient = new ImageAnnotatorClient({
     keyFilename: 'google-credentials.json'
 });
-
 
 const Schema = mongoose.Schema;
 

@@ -7,7 +7,6 @@
     "start": "nodemon server.js",
     "client": "npm start --prefix client",
     "start-oneshot": "concurrently \"npm run start\" \"npm run client\"",
-    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "engines": {
     "node": "11.14.0"
