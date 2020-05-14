@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import './ViewContent.css'
 
@@ -30,7 +30,7 @@ class ViewHistory extends Component {
         const { contents } = this.state
 
         return (
-            <div>
+            <Fragment>
                 {contents.length ?
                     contents.map((content, index) => {
                         return (
@@ -48,7 +48,7 @@ class ViewHistory extends Component {
                     }) :
                     <div>Please add some images</div>
                 }
-            </div>
+            </Fragment>
         )
     }
 }

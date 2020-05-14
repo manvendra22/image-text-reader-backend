@@ -1,6 +1,6 @@
 .dropzone {
     width: 700px;
-    height: 200px;
+    min-height: 200px;
     color: #494949;
     font-size: 22px;
     border: 3px dashed #494949;
@@ -41,7 +41,7 @@
 @media only screen and (max-width: 800px) {
     .dropzone {
         width: 90%;
-        height: 180px;
+        min-height: 180px;
         font-size: 18px;
     }
 
@@ -52,8 +52,8 @@
 
 @media only screen and (max-width: 600px) {
     .dropzone {
+        min-height: 160px;
         font-size: 16px;
-        height: 150px;
     }
 
     .dropzone-container {
