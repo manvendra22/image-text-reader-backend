@@ -26,7 +26,7 @@ class Dropzone extends Component {
                 multiple={false}
             >
                 {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
-                    <div {...getRootProps()}>
+                    <div className="dropzone-container" {...getRootProps()}>
                         <input {...getInputProps()} />
                         {
                             isDragReject ?

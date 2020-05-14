@@ -47,7 +47,7 @@ Clone the project from github.
 
 ### Roadmap:
 
- - [ ] Make responsive
+ - [x] Make responsive
  - [ ] Remove third party dependency for image upload
  - [x] Move frontend and backend to same repo and host on same server
  - [ ] Make mobile design more native
