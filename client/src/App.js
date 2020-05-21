@@ -3,7 +3,7 @@ import './App.css';
 
 import github from './icons/github.svg';
 
-import HandwrtingRecognition from './components/HandwrtingRecognition'
+import ImageTextReader from './components/ImageTextReader'
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <img src={github} alt="github-logo" className="icon-git" />
       </a>
       <div className="container">
-        <HandwrtingRecognition />
+        <ImageTextReader />
       </div>
     </Fragment>
   );

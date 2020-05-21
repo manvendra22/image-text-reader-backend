@@ -8,7 +8,7 @@ import ViewHistory from './ViewHistory'
 
 const API_URL = '/api/contents'
 
-class HandwritingRecognition extends Component {
+class ImageTextReader extends Component {
 
     state = {
         contents: [],
@@ -85,4 +85,4 @@ class HandwritingRecognition extends Component {
     }
 }
 
-export default HandwritingRecognition
+export default ImageTextReader
