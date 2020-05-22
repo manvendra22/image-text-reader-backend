@@ -64,22 +64,21 @@ const visionClient = new ImageAnnotatorClient({
 /**
 API calls
 */
-app.get('/api/contents', async (req, res) => {
-    let contents = [];
+app.get('/api/contents', async (req, res, next) => {
+    try {
+        const contents = [];
+        const snapshot = await collection.get();
 
-    collection.get()
-        .then((snapshot) => {
-            snapshot.forEach((doc) => {
-                let data = doc.data()
-                data.id = doc.id
-                contents.push(data)
-            });
-
-            res.status(200).json({ contents });
-        })
-        .catch((err) => {
-            console.log('Error getting documents', err);
+        snapshot.forEach((doc) => {
+            let data = doc.data()
+            data.id = doc.id
+            contents.push(data)
         });
+
+        res.status(200).json({ contents });
+    } catch (err) {
+        next(err)
+    }
 });
 
 app.post('/api/contents', upload.single('document'), async (req, res, next) => {
@@ -93,32 +92,26 @@ app.post('/api/contents', upload.single('document'), async (req, res, next) => {
     */
     const filePath = req.file.path;
 
-    visionClient
-        .textDetection(filePath)
-        .then(response => {
-            const detections = response[0].textAnnotations;
-            const description = detections[0].description;
+    const response = await visionClient.textDetection(filePath)
+    const detections = response[0].textAnnotations;
+    const description = detections[0].description;
 
-            bucket.upload(filePath, async (err, file, apiResponse) => {
-                if (err) {
-                    return next(err);
-                }
-                await file.makePublic()
+    bucket.upload(filePath, (err, file, apiResponse) => {
+        if (err) {
+            return next(err);
+        }
+        file.makePublic()
 
-                let contents = {
-                    mediaLink: apiResponse.mediaLink,
-                    description
-                }
+        let contents = {
+            mediaLink: apiResponse.mediaLink,
+            description
+        }
 
-                let docRef = collection.doc(apiResponse.name)
-                docRef.set(contents)
+        let docRef = collection.doc(apiResponse.name)
+        docRef.set(contents)
 
-                res.status(200).json({ contents: [contents] })
-            })
-        })
-        .catch(err => {
-            next(err)
-        });
+        res.status(200).json({ contents: [contents] })
+    })
 })
 
 /**
