@@ -72,14 +72,14 @@ class ImageTextReader extends Component {
                         </Fragment>
 
                 }
-                <div className="dropzone">
-                    {
-                        isFetching ? <Loader /> :
-                            view === 'ViewContent' ? <ViewContent result={result} /> :
-                                view === 'ViewHistory' ? <ViewHistory contents={contents} /> :
-                                    <Dropzone callVisionApi={this.callVisionApi} />
-                    }
-                </div>
+                {/* <div className="dropzone"> */}
+                {
+                    isFetching ? <Loader /> :
+                        view === 'ViewContent' ? <ViewContent result={result} /> :
+                            view === 'ViewHistory' ? <ViewHistory contents={contents} /> :
+                                <Dropzone callVisionApi={this.callVisionApi} />
+                }
+                {/* </div> */}
             </Fragment>
         )
     }

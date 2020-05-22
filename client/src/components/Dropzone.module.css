@@ -1,6 +1,6 @@
 .dropzone {
-    width: 700px;
-    min-height: 200px;
+    width: 50%;
+    height: 200px;
     color: #494949;
     font-size: 22px;
     border: 3px dashed #494949;
@@ -10,12 +10,6 @@
     overflow: scroll;
     transition: all 0.3s ease;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.dropzone-container {
-    width: 80%;
 }
 
 .dropzone:hover {
@@ -24,43 +18,50 @@
     transition: all 0.3s ease;
 }
 
-.dropzone-content {
+.dropzoneContent {
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.fileinput {
-    display: none;
-}
-
-.drop-logo {
+.dropLogo {
     height: 150px;
 }
 
-@media only screen and (max-width: 800px) {
+
+@media only screen and (max-width: 1200px) {
     .dropzone {
-        width: 90%;
-        min-height: 180px;
+        width: 70%;
+        height: 180px;
         font-size: 18px;
     }
 
-    .drop-logo {
+    .dropLogo {
         height: 120px;
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
     .dropzone {
-        min-height: 160px;
+        width: 80%;
+        height: 160px;
         font-size: 16px;
     }
 
-    .dropzone-container {
+    .dropLogo {
+        height: 90px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .dropzone {
         width: 90%;
+        height: 120px;
+        font-size: 14px;
     }
 
-    .drop-logo {
-        height: 80px;
+    .dropLogo {
+        height: 70px;
     }
 }

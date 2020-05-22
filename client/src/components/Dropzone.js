@@ -1,65 +1,55 @@
-import React, { Component } from 'react'
-import ReactDropzone from 'react-dropzone';
+import React, { useCallback } from 'react'
+import { useDropzone } from 'react-dropzone';
 
-import './Dropzone.css'
+import styles from './Dropzone.module.css'
 
 import photo from '../icons/photo.svg';
 import failed from '../icons/failed.svg';
 import upload from '../icons/upload.svg';
 
-class Dropzone extends Component {
+export default function Dropzone(props) {
 
-    onDrop = (files) => {
+    const onDrop = useCallback(files => {
         if (files.length) {
             let file = files[0]
             let data = new FormData();
             data.append('document', file);
-            this.props.callVisionApi(data)
+            props.callVisionApi(data)
         }
-    }
+    }, [])
 
-    render() {
-        return (
-            <ReactDropzone
-                onDrop={this.onDrop.bind(this)}
-                accept="image/*"
-                multiple={false}
-            >
-                {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
-                    <div className="dropzone-container" {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        {
-                            isDragReject ?
-                                <div className="dropzone-content">
-                                    <div>File type not accepted/<br />
+    const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({ onDrop, multiple: false, accept: "image/*" })
+
+    return (
+        <div className={styles.dropzone} {...getRootProps()}>
+            <input {...getInputProps()} />
+            {
+                isDragReject ?
+                    <div className={styles.dropzoneContent}>
+                        <div>File type not accepted/<br />
                                         Multiple files not allowed<br />
                                         Please try again</div>
-                                    <img
-                                        src={failed} className="drop-logo" alt="failed-logo"
-                                    />
-                                </div>
-                                :
-                                !isDragActive ?
-                                    <div className="dropzone-content">
-                                        <div>Drag image file here or<br />
-                                            Click inside the box to browse</div>
-                                        <img
-                                            src={photo} className="drop-logo" alt="upload-logo"
-                                        />
-                                    </div> :
-                                    <div className="dropzone-content">
-                                        <div>Drop your file here</div>
-                                        <img
-                                            src={upload} className="drop-logo" alt="uploading-logo"
-                                        />
-                                    </div>
-
-                        }
+                        <img
+                            src={failed} className={styles.dropLogo} alt="failed-logo"
+                        />
                     </div>
-                )}
-            </ReactDropzone>
-        )
-    }
-}
+                    :
+                    !isDragActive ?
+                        <div className={styles.dropzoneContent}>
+                            <div>Drag image file here or<br />
+                                            Click inside the box to browse</div>
+                            <img
+                                src={photo} className={styles.dropLogo} alt="upload-logo"
+                            />
+                        </div> :
+                        <div className={styles.dropzoneContent}>
+                            <div>Drop your file here</div>
+                            <img
+                                src={upload} className={styles.dropLogo} alt="uploading-logo"
+                            />
+                        </div>
 
-export default Dropzone
+            }
+        </div>
+    )
+}
