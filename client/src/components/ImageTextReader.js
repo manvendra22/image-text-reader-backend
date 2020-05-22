@@ -4,17 +4,14 @@ import axios from 'axios';
 import Loader from './Loader'
 import Dropzone from './Dropzone'
 import ViewContent from './ViewContent'
-import ViewHistory from './ViewHistory'
 
 const API_URL = '/api/contents'
 
 class ImageTextReader extends Component {
-
     state = {
+        view: '',
         contents: [],
-        result: {},
-        isFetching: false,
-        view: ''
+        isFetching: false
     };
 
     setStateSync = state => {
@@ -34,7 +31,7 @@ class ImageTextReader extends Component {
         try {
             const res = await axios.get(API_URL)
             let contents = res.data.contents
-            await this.setStateSync({ isFetching: false, contents, view: 'ViewHistory' })
+            await this.setStateSync({ isFetching: false, contents, view: 'ViewContent' })
         } catch (e) {
             console.log(e)
             await this.setStateSync({ isFetching: false, view: '' })
@@ -49,8 +46,8 @@ class ImageTextReader extends Component {
                     'Content-Type': 'multipart/form-data',
                 },
             })
-            let result = res.data.result
-            await this.setStateSync({ isFetching: false, result, view: 'ViewContent' })
+            let contents = res.data.contents
+            await this.setStateSync({ isFetching: false, contents, view: 'ViewContent' })
         } catch (e) {
             console.log(e)
             await this.setStateSync({ isFetching: false, view: '' })
@@ -58,28 +55,25 @@ class ImageTextReader extends Component {
     }
 
     render() {
-        const { isFetching, contents, result, view } = this.state
+        const { isFetching, contents, view } = this.state
         return (
             <Fragment>
                 {
                     isFetching ?
                         null :
                         <Fragment>
-                            {view === 'ViewHistory' ?
+                            {view === 'ViewContent' ?
                                 <button type="button" onClick={this.goToHome}>Home</button> :
                                 <button type="button" onClick={this.getHistoryData}>Display previous results</button>
                             }
                         </Fragment>
 
                 }
-                {/* <div className="dropzone"> */}
                 {
                     isFetching ? <Loader /> :
-                        view === 'ViewContent' ? <ViewContent result={result} /> :
-                            view === 'ViewHistory' ? <ViewHistory contents={contents} /> :
-                                <Dropzone callVisionApi={this.callVisionApi} />
+                        view === 'ViewContent' ? <ViewContent contents={contents} /> :
+                            <Dropzone callVisionApi={this.callVisionApi} />
                 }
-                {/* </div> */}
             </Fragment>
         )
     }

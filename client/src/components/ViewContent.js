@@ -1,52 +1,16 @@
-import React, { Fragment, Component } from 'react'
+import React from 'react'
+import Content from './Content'
 
-import './ViewContent.css'
+import styles from './ViewContent.module.css'
 
-class ViewContent extends Component {
+export default function ViewContent({ contents }) {
 
-    state = {
-        result: {}
-    }
-
-    componentDidMount() {
-        const { result } = this.props
-
-        this.setState({
-            result,
-        })
-    }
-
-    componentDidUpdate(prevProps) {
-        const { result } = this.props
-
-        if (prevProps.result !== result) {
-            this.setState({
-                result
-            })
-        }
-    }
-
-    render() {
-        const { result } = this.state
-
-        return (
-            <Fragment>
-                {Object.keys(result).length ?
-                    <div className="result">
-                        <div className="result-image">
-                            <img
-                                src={result.mediaLink} className="media-image" alt="media-logo"
-                            />
-                        </div>
-                        <div className="result-description">
-                            {result.description}
-                        </div>
-                    </div> :
-                    <div>Please add some images</div>
-                }
-            </Fragment>
-        )
-    }
+    return (
+        <div className={styles.viewContent}>
+            {contents.length ?
+                contents.map(content => <Content {...content} />) :
+                <div>Please add some images</div>
+            }
+        </div>
+    )
 }
-
-export default ViewContent
