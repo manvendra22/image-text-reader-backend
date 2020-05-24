@@ -12,7 +12,7 @@ export default function ImageTextReader() {
     const [contents, setcontents] = useState([])
     const [fetching, setFetching] = useState(false)
 
-    const getHistoryData = async () => {
+    async function getHistoryData() {
         setFetching(true)
         try {
             const res = await axios.get(API_URL)
@@ -27,7 +27,7 @@ export default function ImageTextReader() {
         }
     }
 
-    const callVisionApi = async data => {
+    async function callVisionApi() {
         setFetching(true)
         try {
             const res = await axios.post(API_URL, data, {
