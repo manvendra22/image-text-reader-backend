@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
 
 import Loader from './Loader'
@@ -17,6 +17,7 @@ export default function ImageTextReader() {
         try {
             const res = await axios.get(API_URL)
             let contents = res.data.contents
+
             setcontents(contents)
             setView('ViewContent')
             setFetching(false)
@@ -36,8 +37,6 @@ export default function ImageTextReader() {
             })
             let contents = res.data.contents
 
-            console.log({ contents })
-
             setcontents(contents)
             setView('ViewContent')
             setFetching(false)
@@ -45,6 +44,10 @@ export default function ImageTextReader() {
             console.log(e)
             setFetching(false)
         }
+    }
+
+    function goToHome() {
+        setView('Home')
     }
 
     return (
@@ -58,7 +61,7 @@ export default function ImageTextReader() {
                         </>
                         :
                         <>
-                            <button type="button" onClick={setView('Home')}>Home</button>
+                            <button type="button" onClick={goToHome}>Home</button>
                             <ViewContent contents={contents} />
                         </>
 
