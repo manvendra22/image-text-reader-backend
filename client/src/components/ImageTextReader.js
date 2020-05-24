@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import axios from 'axios';
 
 import Loader from './Loader'
@@ -7,39 +7,27 @@ import ViewContent from './ViewContent'
 
 const API_URL = '/api/contents'
 
-class ImageTextReader extends Component {
-    state = {
-        view: '',
-        contents: [],
-        isFetching: false
-    };
+export default function ImageTextReader() {
+    const [view, setView] = useState('Home')
+    const [contents, setcontents] = useState([])
+    const [fetching, setFetching] = useState(false)
 
-    setStateSync = state => {
-        return new Promise(resolve => {
-            this.setState(state, resolve())
-        })
-    }
-
-    goToHome = () => {
-        this.setState({
-            view: ''
-        })
-    }
-
-    getHistoryData = async data => {
-        await this.setStateSync({ isFetching: true })
+    const getHistoryData = async () => {
+        setFetching(true)
         try {
             const res = await axios.get(API_URL)
             let contents = res.data.contents
-            await this.setStateSync({ isFetching: false, contents, view: 'ViewContent' })
+            setcontents(contents)
+            setView('ViewContent')
+            setFetching(false)
         } catch (e) {
             console.log(e)
-            await this.setStateSync({ isFetching: false, view: '' })
+            setFetching(false)
         }
     }
 
-    callVisionApi = async data => {
-        await this.setStateSync({ isFetching: true })
+    const callVisionApi = async data => {
+        setFetching(true)
         try {
             const res = await axios.post(API_URL, data, {
                 headers: {
@@ -47,36 +35,34 @@ class ImageTextReader extends Component {
                 },
             })
             let contents = res.data.contents
-            await this.setStateSync({ isFetching: false, contents, view: 'ViewContent' })
+
+            console.log({ contents })
+
+            setcontents(contents)
+            setView('ViewContent')
+            setFetching(false)
         } catch (e) {
             console.log(e)
-            await this.setStateSync({ isFetching: false, view: '' })
+            setFetching(false)
         }
     }
 
-    render() {
-        const { isFetching, contents, view } = this.state
-        return (
-            <Fragment>
+    return (
+        fetching ? <Loader /> :
+            <>
                 {
-                    isFetching ?
-                        null :
-                        <Fragment>
-                            {view === 'ViewContent' ?
-                                <button type="button" onClick={this.goToHome}>Home</button> :
-                                <button type="button" onClick={this.getHistoryData}>Display previous results</button>
-                            }
-                        </Fragment>
+                    view === 'Home' ?
+                        <>
+                            <button type="button" onClick={getHistoryData}>Display previous results</button>
+                            <Dropzone callVisionApi={callVisionApi} />
+                        </>
+                        :
+                        <>
+                            <button type="button" onClick={setView('Home')}>Home</button>
+                            <ViewContent contents={contents} />
+                        </>
 
                 }
-                {
-                    isFetching ? <Loader /> :
-                        view === 'ViewContent' ? <ViewContent contents={contents} /> :
-                            <Dropzone callVisionApi={this.callVisionApi} />
-                }
-            </Fragment>
-        )
-    }
+            </>
+    )
 }
-
-export default ImageTextReader
