@@ -104,7 +104,7 @@ app.post('/api/contents', upload.single('document'), async (req, res, next) => {
 
         let contents = {
             mediaLink: apiResponse.mediaLink,
-            description
+            description,
         }
 
         let docRef = collection.doc(apiResponse.name)

@@ -27,7 +27,7 @@ export default function ImageTextReader() {
         }
     }
 
-    async function callVisionApi() {
+    async function callVisionApi(data) {
         setFetching(true)
         try {
             const res = await axios.post(API_URL, data, {
