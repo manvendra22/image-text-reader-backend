@@ -1,12 +1,12 @@
 const express = require('express');
-const fs = require('fs');
+// const fs = require('fs');
 const cors = require('cors')
 const path = require('path');
 const multer = require('multer');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const { Storage } = require('@google-cloud/storage');
-const { Firestore } = require('@google-cloud/firestore');
+// const { Storage } = require('@google-cloud/storage');
+// const { Firestore } = require('@google-cloud/firestore');
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
 
 
@@ -27,35 +27,36 @@ require('dotenv').config();
 
 const port = process.env.PORT || 9000;
 
-const uploadPath = path.join(__dirname, 'uploads');
+// const uploadPath = path.join(__dirname, 'uploads');
 
 /**
 create the upload folder if it doesn't exist
 */
-if (!fs.existsSync(uploadPath)) {
-    fs.mkdirSync(uploadPath);
-}
+// if (!fs.existsSync(uploadPath)) {
+//     fs.mkdirSync(uploadPath);
+// }
 
 /**
 configure multer to use the uploads folder
 */
-const upload = multer({ dest: 'uploads/' });
+// const upload = multer('./uploads');
+const upload = multer();
 
 /**
 Google cloud configs
 */
-const storage = new Storage({
-    keyFilename: 'google-credentials.json'
-});
+// const storage = new Storage({
+//     keyFilename: 'google-credentials.json'
+// });
 
-const bucketName = 'handwriting-recognition-221';
-const bucket = storage.bucket(bucketName);
+// const bucketName = 'handwriting-recognition-221';
+// const bucket = storage.bucket(bucketName);
 
-const firestore = new Firestore({
-    keyFilename: 'google-credentials.json'
-});
+// const firestore = new Firestore({
+//     keyFilename: 'google-credentials.json'
+// });
 
-const collection = firestore.collection('handwriting-recognition-221')
+// const collection = firestore.collection('image-text-reader')
 
 const visionClient = new ImageAnnotatorClient({
     keyFilename: 'google-credentials.json'
@@ -64,54 +65,62 @@ const visionClient = new ImageAnnotatorClient({
 /**
 API calls
 */
-app.get('/api/contents', async (req, res, next) => {
+
+// app.get('/api/contents', async (req, res, next) => {
+//     try {
+//         const contents = [];
+//         const snapshot = await collection.get();
+
+//         snapshot.forEach((doc) => {
+//             let data = doc.data()
+//             data.id = doc.id
+//             contents.push(data)
+//         });
+
+//         res.status(200).json({ contents });
+//     } catch (err) {
+//         next(err)
+//     }
+// });
+
+app.post('/api/contents', upload.single('image'), async (req, res, next) => {
     try {
-        const contents = [];
-        const snapshot = await collection.get();
+        /**
+        get the file path uploaded via multer
+        */
+        // const filePath = req.file.path;
 
-        snapshot.forEach((doc) => {
-            let data = doc.data()
-            data.id = doc.id
-            contents.push(data)
-        });
+        const file = req.file.buffer
+        const mimetype = req.file.mimetype
 
-        res.status(200).json({ contents });
-    } catch (err) {
-        next(err)
-    }
-});
+        const response = await visionClient.textDetection(file)
+        const detections = response[0].textAnnotations;
+        const description = detections[0].description;
 
-app.post('/api/contents', upload.single('document'), async (req, res, next) => {
-    if (!req.file) {
-        const err = new Error('File not found')
+        res.status(200).json({ description, file, mimetype })
+
+        // fs.unlink(req.file.path)
+    } catch (error) {
+        const err = new Error(error)
         return next(err);
     }
 
-    /**
-    get the file path uploaded via multer
-    */
-    const filePath = req.file.path;
+    // bucket.upload(filePath, (err, file, apiResponse) => {
+    //     if (err) {
+    //         return next(err);
+    //     }
+    //     file.makePublic()
 
-    const response = await visionClient.textDetection(filePath)
-    const detections = response[0].textAnnotations;
-    const description = detections[0].description;
+    //     let contents = {
+    //         mediaLink: apiResponse.mediaLink,
+    //         description,
+    //     }
 
-    bucket.upload(filePath, (err, file, apiResponse) => {
-        if (err) {
-            return next(err);
-        }
-        file.makePublic()
+    //     let docRef = collection.doc(apiResponse.name)
+    //     docRef.set(contents)
 
-        let contents = {
-            mediaLink: apiResponse.mediaLink,
-            description,
-        }
-
-        let docRef = collection.doc(apiResponse.name)
-        docRef.set(contents)
-
-        res.status(200).json({ contents: [contents] })
-    })
+    //     res.status(200).json({ contents: [contents] })
+    // })
 })
 
 /**

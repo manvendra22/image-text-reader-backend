@@ -9,23 +9,23 @@ const API_URL = '/api/contents'
 
 export default function ImageTextReader() {
     const [view, setView] = useState('Home')
-    const [contents, setcontents] = useState([])
+    const [content, setcontent] = useState({})
     const [fetching, setFetching] = useState(false)
 
-    async function getHistoryData() {
-        setFetching(true)
-        try {
-            const res = await axios.get(API_URL)
-            let contents = res.data.contents
+    // async function getHistoryData() {
+    //     setFetching(true)
+    //     try {
+    //         const res = await axios.get(API_URL)
+    //         let contents = res.data.contents
 
-            setcontents(contents)
-            setView('ViewContent')
-            setFetching(false)
-        } catch (e) {
-            console.log(e)
-            setFetching(false)
-        }
-    }
+    //         setcontents(contents)
+    //         setView('ViewContent')
+    //         setFetching(false)
+    //     } catch (e) {
+    //         console.log(e)
+    //         setFetching(false)
+    //     }
+    // }
 
     async function callVisionApi(data) {
         setFetching(true)
@@ -35,9 +35,8 @@ export default function ImageTextReader() {
                     'Content-Type': 'multipart/form-data',
                 },
             })
-            let contents = res.data.contents
-
-            setcontents(contents)
+            let res_data = res.data
+            setcontent(res_data)
             setView('ViewContent')
             setFetching(false)
         } catch (e) {
@@ -56,13 +55,13 @@ export default function ImageTextReader() {
                 {
                     view === 'Home' ?
                         <>
-                            <button type="button" onClick={getHistoryData}>Display previous results</button>
+                            {/* <button type="button" onClick={getHistoryData}>Display previous results</button> */}
                             <Dropzone callVisionApi={callVisionApi} />
                         </>
                         :
                         <>
                             <button type="button" onClick={goToHome}>Home</button>
-                            <ViewContent contents={contents} />
+                            <ViewContent content={content} />
                         </>
 
                 }
