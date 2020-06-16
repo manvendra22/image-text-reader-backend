@@ -1,14 +1,10 @@
 const express = require('express');
-// const fs = require('fs');
 const cors = require('cors')
 const path = require('path');
 const multer = require('multer');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-// const { Storage } = require('@google-cloud/storage');
-// const { Firestore } = require('@google-cloud/firestore');
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
-
 
 const app = express();
 
@@ -27,69 +23,27 @@ require('dotenv').config();
 
 const port = process.env.PORT || 9000;
 
-// const uploadPath = path.join(__dirname, 'uploads');
-
 /**
-create the upload folder if it doesn't exist
+configure multer
 */
-// if (!fs.existsSync(uploadPath)) {
-//     fs.mkdirSync(uploadPath);
-// }
-
-/**
-configure multer to use the uploads folder
-*/
-// const upload = multer('./uploads');
 const upload = multer();
 
 /**
-Google cloud configs
+Google vision configs
 */
-// const storage = new Storage({
-//     keyFilename: 'google-credentials.json'
-// });
-
-// const bucketName = 'handwriting-recognition-221';
-// const bucket = storage.bucket(bucketName);
-
-// const firestore = new Firestore({
-//     keyFilename: 'google-credentials.json'
-// });
-
-// const collection = firestore.collection('image-text-reader')
-
 const visionClient = new ImageAnnotatorClient({
     keyFilename: 'google-credentials.json'
 });
 
 /**
-API calls
+API call
 */
-
-// app.get('/api/contents', async (req, res, next) => {
-//     try {
-//         const contents = [];
-//         const snapshot = await collection.get();
-
-//         snapshot.forEach((doc) => {
-//             let data = doc.data()
-//             data.id = doc.id
-//             contents.push(data)
-//         });
-
-//         res.status(200).json({ contents });
-//     } catch (err) {
-//         next(err)
-//     }
-// });
 
 app.post('/api/contents', upload.single('image'), async (req, res, next) => {
     try {
         /**
-        get the file path uploaded via multer
+        get the file data via multer
         */
-        // const filePath = req.file.path;
-
         const file = req.file.buffer
         const mimetype = req.file.mimetype
 
@@ -98,29 +52,10 @@ app.post('/api/contents', upload.single('image'), async (req, res, next) => {
         const description = detections[0].description;
 
         res.status(200).json({ description, file, mimetype })
-
-        // fs.unlink(req.file.path)
     } catch (error) {
         const err = new Error(error)
         return next(err);
     }
-
-    // bucket.upload(filePath, (err, file, apiResponse) => {
-    //     if (err) {
-    //         return next(err);
-    //     }
-    //     file.makePublic()
-
-    //     let contents = {
-    //         mediaLink: apiResponse.mediaLink,
-    //         description,
-    //     }
-
-    //     let docRef = collection.doc(apiResponse.name)
-    //     docRef.set(contents)
-
-    //     res.status(200).json({ contents: [contents] })
-    // })
 })
 
 /**
