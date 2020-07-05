@@ -12,21 +12,6 @@ export default function ImageTextReader() {
     const [content, setcontent] = useState({})
     const [fetching, setFetching] = useState(false)
 
-    // async function getHistoryData() {
-    //     setFetching(true)
-    //     try {
-    //         const res = await axios.get(API_URL)
-    //         let contents = res.data.contents
-
-    //         setcontents(contents)
-    //         setView('ViewContent')
-    //         setFetching(false)
-    //     } catch (e) {
-    //         console.log(e)
-    //         setFetching(false)
-    //     }
-    // }
-
     async function callVisionApi(data) {
         setFetching(true)
         try {
@@ -55,7 +40,6 @@ export default function ImageTextReader() {
                 {
                     view === 'Home' ?
                         <>
-                            {/* <button type="button" onClick={getHistoryData}>Display previous results</button> */}
                             <Dropzone callVisionApi={callVisionApi} />
                         </>
                         :
