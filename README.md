@@ -14,7 +14,6 @@ https://image-text-reader.herokuapp.com/
 - ExpressJS
 - SCSS
 - Google cloud vision api
-- Google cloudDB
 
 ### Features:
 
