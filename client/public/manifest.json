@@ -1,6 +1,6 @@
 {
   "short_name": "Image Text Reader",
-  "name": "Detect Text from any image",
+  "name": "Image Text Reader",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
