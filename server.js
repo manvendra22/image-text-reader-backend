@@ -1,62 +1,31 @@
 const express = require('express');
 const cors = require('cors')
 const path = require('path');
-const multer = require('multer');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const { ImageAnnotatorClient } = require('@google-cloud/vision');
+
+const router = require("./src/routes");
 
 const app = express();
+
+require('dotenv').config();
+const port = process.env.PORT || 9000;
 
 app.use(cors())
 app.use(logger('dev'));
 app.options('*', cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 /**
 Serve static files from the React app
 */
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-
-require('dotenv').config();
-
-const port = process.env.PORT || 9000;
-
 /**
-configure multer
+index router
 */
-const upload = multer();
-
-/**
-Google vision configs
-*/
-const visionClient = new ImageAnnotatorClient({
-    keyFilename: 'google-credentials.json'
-});
-
-/**
-API call
-*/
-
-app.post('/api/contents', upload.single('image'), async (req, res, next) => {
-    try {
-        /**
-        get the file data via multer
-        */
-        const file = req.file.buffer
-        const mimetype = req.file.mimetype
-
-        const response = await visionClient.textDetection(file)
-        const detections = response[0].textAnnotations;
-        const description = detections[0].description;
-
-        res.status(200).json({ description, file, mimetype })
-    } catch (error) {
-        const err = new Error(error)
-        return next(err);
-    }
-})
+app.use("/", router);
 
 /**
 catch 404 and forward to error handler
