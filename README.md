@@ -42,7 +42,7 @@ Clone the project from github.
 
 #### For running both Frontend & Backend in one shot using concurrently
 
-    $ npm oneshot
+    $ npm run dev
 
 ### Roadmap:
 
