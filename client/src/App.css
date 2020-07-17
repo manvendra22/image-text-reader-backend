@@ -12,7 +12,7 @@ div:focus {
   outline: none;
 }
 
-button {
+/* button {
   color: #494949;
   text-transform: uppercase;
   text-decoration: none;
@@ -30,6 +30,19 @@ button:hover {
   cursor: pointer;
   background: #8fd3f4;
   transition: all 0.2s ease;
+} */
+
+.link {
+  display: inline-block;
+  color: #1056FF;
+  margin-bottom: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-bottom: 2px solid #6394DA;
+}
+
+.link:hover {
+  border-bottom: 2px solid #1056FF;
 }
 
 .git-link {

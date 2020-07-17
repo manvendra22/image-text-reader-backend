@@ -46,7 +46,7 @@ export default function ImageTextReader() {
                         </>
                         :
                         <>
-                            <button type="button" onClick={goToHome}>Home</button>
+                            <span className="link" onClick={goToHome}>Home</span>
                             <ViewContent content={content} />
                         </>
 
