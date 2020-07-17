@@ -1,25 +1,6 @@
 .viewContent {
-    width: 60%;
-    color: #494949;
-    font-size: 20px;
-    border: 3px dashed #494949;
+    padding: 20px;
+    display: flex;
+    border: 2px dashed #91A0B5;
     border-radius: 15px;
-}
-
-@media only screen and (max-width: 1200px) {
-    .viewContent {
-        width: 70%;
-    }
-}
-
-@media only screen and (max-width: 700px) {
-    .viewContent {
-        width: 80%;
-    }
-}
-
-@media only screen and (max-width: 450px) {
-    .viewContent {
-        width: 90%;
-    }
 }

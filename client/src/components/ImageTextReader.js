@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 
+import styles from './ImageTextReader.module.css'
+
 import Loader from './Loader'
 import Dropzone from './Dropzone'
 import ViewContent from './ViewContent'
@@ -36,7 +38,7 @@ export default function ImageTextReader() {
 
     return (
         fetching ? <Loader /> :
-            <>
+            <div className={styles.container}>
                 {
                     view === 'Home' ?
                         <>
@@ -49,6 +51,6 @@ export default function ImageTextReader() {
                         </>
 
                 }
-            </>
+            </div>
     )
 }

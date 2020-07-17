@@ -22,14 +22,13 @@ export default function Dropzone(props) {
     const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({ onDrop, multiple: false, accept: "image/*" })
 
     return (
-        <div className={styles.dropzone} {...getRootProps()}>
+        <div {...getRootProps()}>
             <input {...getInputProps()} />
             {
                 isDragReject ?
                     <div className={styles.dropzoneContent}>
-                        <div>File type not accepted/<br />
-                                        Multiple files not allowed<br />
-                                        Please try again</div>
+                        <div>File type not accepted,<br />
+                            or multiple files not allowed</div>
                         <img
                             src={failed} className={styles.dropLogo} alt="failed-logo"
                         />
@@ -37,8 +36,7 @@ export default function Dropzone(props) {
                     :
                     !isDragActive ?
                         <div className={styles.dropzoneContent}>
-                            <div>Drag image file here or<br />
-                                            Click inside the box to browse</div>
+                            <div>Drag your image here, or <span className={styles.highlight}>browse</span></div>
                             <img
                                 src={photo} className={styles.dropLogo} alt="upload-logo"
                             />

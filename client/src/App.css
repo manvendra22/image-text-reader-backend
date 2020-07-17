@@ -1,9 +1,35 @@
-.container {
+.app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: #E9F3FE;
+}
+
+div,
+div:focus {
+  outline: none;
+}
+
+button {
+  color: #494949;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #84fab0;
+  border: 2px solid #494949;
+  display: inline-block;
+  padding: 15px 20px;
+  margin: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  cursor: pointer;
+  background: #8fd3f4;
+  transition: all 0.2s ease;
 }
 
 .git-link {

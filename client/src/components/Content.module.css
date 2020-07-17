@@ -1,31 +1,19 @@
-.result {
-    display: flex;
-    height: 230px;
-    padding: 10px;
-}
-
 .resultDescription {
-    background-color: #defcf9;
-    border-radius: 10px;
-    color: black;
+    background-color: #FFF;
     width: 50%;
     height: 200px;
-    padding: 15px;
-    margin: 5px;
+    padding: 10px;
+    border: 2px solid #91A0B5;
     overflow-y: auto;
 }
 
 .resultImage {
-    margin: 5px;
+    margin-right: 10px;
     width: 50%;
-    height: 200px;
 }
 
 .mediaImage {
     height: 200px;
     width: 100%;
     pointer-events: none;
-    border-radius: 10px;
-    padding: 5px;
-    background: #defcf9;
 }
