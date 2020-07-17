@@ -27,25 +27,24 @@ export default function Dropzone(props) {
             {
                 isDragReject ?
                     <div className={styles.dropzoneContent}>
-                        <div>File type not accepted,<br />
-                            or multiple files not allowed</div>
                         <img
                             src={failed} className={styles.dropLogo} alt="failed-logo"
                         />
+                        <div>File type not accepted / multiple files not allowed</div>
                     </div>
                     :
                     !isDragActive ?
                         <div className={styles.dropzoneContent}>
-                            <div>Drag your image here, or <span className={styles.highlight}>browse</span></div>
                             <img
                                 src={photo} className={styles.dropLogo} alt="upload-logo"
                             />
+                            <div>Drag your image here, or <span className={styles.highlight}>browse</span></div>
                         </div> :
                         <div className={styles.dropzoneContent}>
-                            <div>Drop your file here</div>
                             <img
                                 src={upload} className={styles.dropLogo} alt="uploading-logo"
                             />
+                            <div>Drop your file here</div>
                         </div>
 
             }
