@@ -6,7 +6,7 @@
 
 https://image-text-reader.herokuapp.com/
 
-![Screenshot](image_text_reader.png)
+![Screenshot](https://res.cloudinary.com/dracarys/image/upload/v1595049188/image_text.png)
 
 ### Tech stack:
 
