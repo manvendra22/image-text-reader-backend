@@ -1,6 +1,6 @@
 # Image Text Reader
 
-> Image Text Reader is a web app to read texts from an image using google’s cloud vision api.
+> Image Text Reader is a responsive web app to read texts from an image using google’s cloud vision api.
 
 ### Live Link
 
