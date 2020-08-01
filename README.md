@@ -50,5 +50,5 @@ Clone the project from github.
  - [ ] Remove third party dependency for image upload
  - [x] Move frontend and backend to same repo and host on same server
  - [ ] Make mobile design more native
- - [ ] Implement explicit content detection (Safe search)
+ - [ ] Migrate from google api to ocr space api
  - [ ] Add animations, make interactions look beautiful
