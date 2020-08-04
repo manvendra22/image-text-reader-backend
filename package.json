@@ -26,6 +26,7 @@
     "nodemon": "^2.0.2"
   },
   "devDependencies": {
-    "concurrently": "^5.2.0"
+    "concurrently": "^5.2.0",
+    "kill-port": "^1.6.1"
   }
 }
