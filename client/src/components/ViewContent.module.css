@@ -1,6 +1,22 @@
 .viewContent {
-    padding: 20px;
-    display: flex;
-    border: 2px dashed #91A0B5;
-    border-radius: 15px;
+  position: relative;
+}
+
+.result {
+  position: absolute;
+  background: #dbff33;
+  opacity: 70%;
+  color: black;
+  padding: 10px;
+}
+
+.resultImage {
+  margin-right: 10px;
+  width: 100%;
+}
+
+.mediaImage {
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
 }

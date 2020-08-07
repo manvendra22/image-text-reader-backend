@@ -11,7 +11,6 @@ export default function Dropzone(props) {
 
     const onDrop = useCallback(files => {
         if (files.length) {
-            console.log({ files })
             let file = files[0]
             let data = new FormData();
             data.append('image', file);
