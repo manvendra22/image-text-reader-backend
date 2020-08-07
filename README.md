@@ -1,6 +1,6 @@
-# Image Text Reader
+# Watson Visual Recognition
 
-> Image Text Reader is a responsive web app to read texts from an image using google’s cloud vision api.
+> Watson Visual Recognition is a responsive web app to identify scenes and objects in images using The IBM Watson™ Visual Recognition service.
 
 ### Live Link
 
@@ -13,13 +13,11 @@ https://image-text-reader.herokuapp.com/
 - React
 - ExpressJS
 - SCSS
-- Google cloud vision api
+- IBM Watson™ Visual Recognition
 
 ### Features:
 
-- Text recognition from image
-- Shows old image search history
-- Explicit content detection (yet to be implemented)
+- Visual recognition and analysis
 
 ### Installation
 
@@ -46,9 +44,7 @@ Clone the project from github.
 
 ### Roadmap:
 
- - [x] Make responsive
- - [ ] Remove third party dependency for image upload
- - [x] Move frontend and backend to same repo and host on same server
- - [ ] Make mobile design more native
- - [ ] Migrate from google api to ocr space api
- - [ ] Add animations, make interactions look beautiful
+- [x] Make responsive
+- [ ] Remove third party dependency for image upload
+- [x] Move frontend and backend to same repo and host on same server
+- [ ] Add animations, make interactions look beautiful

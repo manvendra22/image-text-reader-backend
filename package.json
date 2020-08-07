@@ -1,5 +1,5 @@
 {
-  "name": "handwriting-recognition-backend",
+  "name": "watson-visual-recognition",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
