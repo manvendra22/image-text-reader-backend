@@ -1,29 +1,29 @@
 .dropzoneContent {
-    width: 100%;
-    padding: 30px;
-    text-align: center;
-    border: 2px dashed #91A0B5;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  width: 100%;
+  padding: 30px;
+  text-align: center;
+  border: 2px dashed #91a0b5;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .dropzoneContent:hover {
-    background: #DAEAFD;
-    border: 2px dashed #6394DA;
+  background: #daeafd;
+  border: 2px dashed #6394da;
 }
 
 .highlight {
-    color: #1056FF
+  color: #1056ff;
 }
 
 .dropLogo {
-    height: 120px;
-    margin-bottom: 20px;
+  height: 120px;
+  margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 700px) {
-    .dropLogo {
-        height: 80px;
-    }
+  .dropLogo {
+    height: 80px;
+  }
 }

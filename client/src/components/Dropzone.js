@@ -38,7 +38,7 @@ export default function Dropzone(props) {
                             <img
                                 src={photo} className={styles.dropLogo} alt="upload-logo"
                             />
-                            <div>Drag your image here, or <span className={styles.highlight}>browse</span></div>
+                            <div>Drag your image here, or click inside the box to <span className={styles.highlight}>browse</span></div>
                         </div> :
                         <div className={styles.dropzoneContent}>
                             <img
