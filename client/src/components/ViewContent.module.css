@@ -10,6 +10,15 @@
   padding: 10px;
 }
 
+.result div:first-child {
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.result div:last-child {
+  font-size: 16px;
+}
+
 .resultImage {
   margin-right: 10px;
   width: 100%;
