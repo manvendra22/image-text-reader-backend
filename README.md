@@ -26,6 +26,11 @@ Clone the project from github.
 
     $ git clone https://github.com/manvendra22/watson-visual-recognition.git
     $ cd watson-visual-recognition
+    
+#### For running both Frontend & Backend in one shot using concurrently
+
+    $ npm run setup
+    $ npm run dev
 
 #### For Frontend to run on port 3000
 
@@ -37,10 +42,6 @@ Clone the project from github.
 
     $ npm install
     $ npm start
-
-#### For running both Frontend & Backend in one shot using concurrently
-
-    $ npm run dev
 
 ### Roadmap:
 
