@@ -4,8 +4,7 @@
 
 .result {
   position: absolute;
-  background: #dbff33;
-  opacity: 0.7;
+  background: rgba(239, 120, 3, 0.7);
   color: black;
   padding: 10px;
 }
