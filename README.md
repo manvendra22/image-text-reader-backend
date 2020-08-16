@@ -4,7 +4,7 @@
 
 ### Live Link
 
-https://image-text-reader.herokuapp.com/
+https://watson-visual-recognitions.herokuapp.com/
 
 ![Screenshot](https://res.cloudinary.com/dracarys/image/upload/image_text.png)
 
@@ -24,8 +24,13 @@ https://image-text-reader.herokuapp.com/
 It requires Node and NPM to run.
 Clone the project from github.
 
-    $ git clone https://github.com/manvendra22/image-text-reader.git
-    $ cd image-text-reader
+    $ git clone https://github.com/manvendra22/watson-visual-recognition.git
+    $ cd watson-visual-recognition
+    
+#### For running both Frontend & Backend in one shot using concurrently
+
+    $ npm run setup
+    $ npm run dev
 
 #### For Frontend to run on port 3000
 
@@ -37,10 +42,6 @@ Clone the project from github.
 
     $ npm install
     $ npm start
-
-#### For running both Frontend & Backend in one shot using concurrently
-
-    $ npm run dev
 
 ### Roadmap:
 
