@@ -1,6 +1,8 @@
 import React from 'react'
 import styles from './ViewContent.module.css'
 
+import Scanner from './Scanner'
+
 const style = [
     { top: '10%', left: '5%' },
     { top: '20%', right: '5%' },
@@ -9,26 +11,28 @@ const style = [
     { bottom: '10%', left: '5%' }
 ]
 
-export default function ViewContent({ content }) {
-    const { description, file, mimetype } = content
-
-    const classesData = description?.images?.[0].classifiers?.[0].classes.slice(0, 5)
-    const image = `data:${mimetype};base64,${Buffer.from(file.data).toString('base64')}`
+export default function ViewContent({ image, fetching, data = {} }) {
+    const classesData = data?.result?.images?.[0].classifiers?.[0].classes.slice(0, 5)
 
     return (
         <div className={styles.viewContent}>
+            <Scanner />
             <div className={styles.resultImage}>
                 <img
-                    src={image} className={styles.mediaImage} alt="media-logo"
+                    // src={image}
+                    src="http://videoforme.ru/uploads/2013/01/portrait_photography_0131440-600x375.jpg"
+                    className={styles.mediaImage} alt="media-logo"
                 />
             </div>
             {
-                classesData.map((data, i) => (
-                    <div key={data.class} className={styles.result} style={style[i]}>
-                        <div>{data.class}</div>
-                        <div>{(data.score * 100).toFixed(2)}%</div>
-                    </div>)
-                )
+                classesData ?
+                    classesData.map((data, i) => (
+                        <div key={data.class} className={styles.result} style={style[i]}>
+                            <div>{data.class}</div>
+                            <div>{(data.score * 100).toFixed(2)}%</div>
+                        </div>)
+                    )
+                    : null
             }
         </div>
     )

@@ -7,14 +7,12 @@ import photo from '../icons/photo.svg';
 import failed from '../icons/failed.svg';
 import upload from '../icons/upload.svg';
 
-export default function Dropzone(props) {
+export default function Dropzone({ callVisionApi }) {
 
     const onDrop = useCallback(files => {
         if (files.length) {
             let file = files[0]
-            let data = new FormData();
-            data.append('image', file);
-            props.callVisionApi(data)
+            callVisionApi(file)
         }
     }, [])
 

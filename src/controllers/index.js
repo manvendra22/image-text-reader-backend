@@ -20,7 +20,6 @@ exports.fetchText = async function (req, res, next) {
             get the file data via multer
         */
         const file = req.file.buffer
-        const mimetype = req.file.mimetype
 
         const classifyParams = {
             imagesFile: file,
@@ -29,7 +28,7 @@ exports.fetchText = async function (req, res, next) {
 
         const response = await visualRecognition.classify(classifyParams);
 
-        res.status(200).json({ description: response.result, file, mimetype })
+        res.status(200).json({ result: response.result })
     } catch (error) {
         const err = new Error(error)
         return next(err);
