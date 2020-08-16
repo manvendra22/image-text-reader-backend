@@ -16,23 +16,20 @@ export default function ViewContent({ image, fetching, data = {} }) {
 
     return (
         <div className={styles.viewContent}>
-            <Scanner />
             <div className={styles.resultImage}>
                 <img
-                    // src={image}
-                    src="http://videoforme.ru/uploads/2013/01/portrait_photography_0131440-600x375.jpg"
+                    src={image}
                     className={styles.mediaImage} alt="media-logo"
                 />
             </div>
-            {
-                classesData ?
-                    classesData.map((data, i) => (
-                        <div key={data.class} className={styles.result} style={style[i]}>
-                            <div>{data.class}</div>
-                            <div>{(data.score * 100).toFixed(2)}%</div>
-                        </div>)
-                    )
-                    : null
+            {fetching ? <Scanner /> :
+                classesData &&
+                classesData.map((data, i) => (
+                    <div key={data.class} className={styles.result} style={style[i]}>
+                        <div>{data.class}</div>
+                        <div>{(data.score * 100).toFixed(2)}%</div>
+                    </div>)
+                )
             }
         </div>
     )

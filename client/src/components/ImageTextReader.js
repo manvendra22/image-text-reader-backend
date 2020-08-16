@@ -9,7 +9,7 @@ import ViewContent from './ViewContent'
 const API_URL = '/api/contents'
 
 export default function ImageTextReader() {
-    const [view, setView] = useState('ViewContent')
+    const [view, setView] = useState('Home')
     const [result, setResult] = useState(null)
     const [image, setImage] = useState(null)
     const [fetching, setFetching] = useState(false)
