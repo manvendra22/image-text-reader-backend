@@ -4,14 +4,14 @@
   background: rgba(239, 120, 3, 1);
   border-radius: 10px;
   position: absolute;
-  animation: scanner 4s infinite linear;
+  animation: scanner 3s infinite linear;
 }
 
 .scanner div {
   position: absolute;
   right: 0px;
   bottom: 5px;
-  animation: flash 4s infinite linear;
+  animation: flash 3s infinite linear;
 }
 
 .scanner div:before {

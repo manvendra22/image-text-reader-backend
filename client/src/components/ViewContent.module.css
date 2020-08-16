@@ -21,10 +21,13 @@
 .resultImage {
   margin-right: 10px;
   width: 100%;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+  border-radius: 10px;
 }
 
 .mediaImage {
   height: 100%;
   width: 100%;
   pointer-events: none;
+  border-radius: 10px;
 }
