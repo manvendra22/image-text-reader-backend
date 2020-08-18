@@ -1,17 +1,18 @@
 .container {
-    width: 90%;
-    max-width: 700px;
-    min-height: 200px;
-    padding: 30px;
-    font-size: 20px;
-    color: #304D73;
-    background: #FFF;
-    box-shadow: 0 50px 80px rgba(0, 0, 0, 0.07);
-    border-radius: 15px;
+  width: 90%;
+  max-width: 700px;
+  min-height: 200px;
+  padding: 30px;
+  margin: 30px;
+  font-size: 20px;
+  color: #304d73;
+  background: #fff;
+  box-shadow: 0 50px 80px rgba(0, 0, 0, 0.07);
+  border-radius: 15px;
 }
 
 @media only screen and (max-width: 700px) {
-    .container {
-        font-size: 16px;
-    }
+  .container {
+    font-size: 16px;
+  }
 }
