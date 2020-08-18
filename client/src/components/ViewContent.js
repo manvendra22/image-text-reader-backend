@@ -5,10 +5,10 @@ import Scanner from './Scanner'
 
 const style = [
     { top: '10%', left: '5%' },
-    { top: '20%', right: '5%' },
+    { top: '25%', right: '5%' },
     { top: '40%', left: '15%' },
-    { top: '50%', right: '15%' },
-    { bottom: '10%', left: '5%' }
+    { top: '55%', right: '15%' },
+    { top: '70%', left: '5%' }
 ]
 
 export default function ViewContent({ image, fetching, data = {} }) {
