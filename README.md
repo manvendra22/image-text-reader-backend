@@ -1,6 +1,6 @@
 # Watson Visual Recognition
 
-> Watson Visual Recognition is a responsive web app to identify scenes and objects in images using The IBM Watson™ Visual Recognition service.
+> A responsive web app to identify scenes and objects in images using The IBM Watson™ Visual Recognition service.
 
 ### Live Link
 
