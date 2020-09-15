@@ -13,6 +13,9 @@ https://watson-visual-recognitions.herokuapp.com/
 - React
 - ExpressJS
 - SCSS
+
+### APIs:
+
 - IBM Watson™ Visual Recognition
 
 ### Features:
